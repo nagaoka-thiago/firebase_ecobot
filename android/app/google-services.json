@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780945785517",
+    "project_id": "fir-ecobot",
+    "storage_bucket": "fir-ecobot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780945785517:android:355fad9599588d97f37c24",
+        "android_client_info": {
+          "package_name": "com.example.firebase_ecobot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780945785517-730sts99ju50nmv1ra9tansvl557bueh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1V72Fp3E2rSHbTuZF-RGxui67BNOEvE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780945785517-730sts99ju50nmv1ra9tansvl557bueh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
