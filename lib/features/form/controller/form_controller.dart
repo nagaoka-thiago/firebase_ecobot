@@ -6,7 +6,6 @@ part 'form_controller.g.dart';
 class FormController = _FormControllerBase with _$FormController;
 
 abstract class _FormControllerBase with Store {
-  final _database = FirebaseFirestore.instance;
   final _uID = FirebaseAuth.instance.currentUser!.uid;
 
   @observable
@@ -29,18 +28,28 @@ abstract class _FormControllerBase with Store {
 
   @action
   Future saveFavoritePlaceCoordinates() async {
-    await _database
-        .collection("data")
-        .doc(_uID)
-        .collection("favorite-places")
-        .doc("places")
-        .set({
-      'nameOfFavoritePlace': favoritePlace,
-      'latitude': latitude,
-      'longitude': longitude
-    });
+    try {
+      await FirebaseFirestore.instance
+          .collection("data")
+          .doc(_uID)
+          .set({'id': _uID}).whenComplete(
+        () => FirebaseFirestore.instance
+            .collection("data")
+            .doc(_uID)
+            .collection("favorite-places")
+            .doc(favoritePlace)
+            .set({
+          'nameOfFavoritePlace': favoritePlace,
+          'latitude': latitude,
+          'longitude': longitude,
+        }),
+      );
+
+    } on FirebaseException catch (e) {
+      print(e.code);
+    }
   }
 
-
+//TODO! Implement user feedback and reload the page
 
 }

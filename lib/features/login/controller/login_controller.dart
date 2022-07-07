@@ -23,6 +23,9 @@ abstract class _LoginControllerBase with Store {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      print(FirebaseAuth.instance.signInWithCredential(credential));
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -30,7 +33,7 @@ abstract class _LoginControllerBase with Store {
         ),
       );
       // Once signed in, return the UserCredential
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      
     } on FirebaseAuthException catch (e) {
      print(e.code);
     }

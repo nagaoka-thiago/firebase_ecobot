@@ -53,7 +53,10 @@ class _FormPageState extends State<FormPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await _controller.saveFavoritePlaceCoordinates();
+                      debugPrint("teste");
+                    },
                     child: Icon(Icons.save),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -62,9 +65,7 @@ class _FormPageState extends State<FormPage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () async {
-                      await _controller.saveFavoritePlaceCoordinates();
-                    },
+                    onPressed: () {},
                     child: Icon(Icons.map),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
