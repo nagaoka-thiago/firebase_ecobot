@@ -17,16 +17,17 @@ abstract class _MapViewControllerBase with Store {
       borderColor: Colors.red);
 
   @observable
-  late PolyEditor polyEditor;
+  late PolyEditor polyEditor =
+      PolyEditor(points: [], pointIcon: Icon(Icons.abc_outlined));
 
   @observable
-  late ObservableList<Polygon> polygons;
+  late ObservableList<Polygon> polygons = [Polygon(points: [])].asObservable();
 
   @observable
-  late Location location;
+  late Location location = Location();
 
   @observable
-  late LatLng firstLocation;
+  late LatLng firstLocation = LatLng(0, 0);
 
   @observable
   bool isInitialized = false;
