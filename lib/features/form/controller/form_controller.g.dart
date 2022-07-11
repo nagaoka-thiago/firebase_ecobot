@@ -29,13 +29,13 @@ mixin _$FormController on _FormControllerBase, Store {
       Atom(name: '_FormControllerBase.latitude', context: context);
 
   @override
-  String get latitude {
+  List<String> get latitude {
     _$latitudeAtom.reportRead();
     return super.latitude;
   }
 
   @override
-  set latitude(String value) {
+  set latitude(List<String> value) {
     _$latitudeAtom.reportWrite(value, super.latitude, () {
       super.latitude = value;
     });
@@ -45,13 +45,13 @@ mixin _$FormController on _FormControllerBase, Store {
       Atom(name: '_FormControllerBase.longitude', context: context);
 
   @override
-  String get longitude {
+  List<String> get longitude {
     _$longitudeAtom.reportRead();
     return super.longitude;
   }
 
   @override
-  set longitude(String value) {
+  set longitude(List<String> value) {
     _$longitudeAtom.reportWrite(value, super.longitude, () {
       super.longitude = value;
     });
@@ -62,9 +62,9 @@ mixin _$FormController on _FormControllerBase, Store {
       context: context);
 
   @override
-  Future<dynamic> saveFavoritePlaceCoordinates() {
+  Future<dynamic> saveFavoritePlaceCoordinates(BuildContext context) {
     return _$saveFavoritePlaceCoordinatesAsyncAction
-        .run(() => super.saveFavoritePlaceCoordinates());
+        .run(() => super.saveFavoritePlaceCoordinates(context));
   }
 
   late final _$_FormControllerBaseActionController =

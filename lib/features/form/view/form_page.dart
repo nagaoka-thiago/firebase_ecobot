@@ -13,6 +13,11 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   final _controller = FormController();
+  final TextEditingController _favoritePlaceTextController =
+      TextEditingController();
+  final TextEditingController _latitudeTextController = TextEditingController();
+  final TextEditingController _longitudeTextController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +43,17 @@ class _FormPageState extends State<FormPage> {
                 ),
               ),
               MyTextField(
+                textEditingController: _favoritePlaceTextController,
                 labelText: "Enter the name of your favorite place:",
                 onChanged: _controller.changeFavoritePlace,
               ),
               MyTextField(
+                textEditingController: _latitudeTextController,
                 labelText: "Latitude",
                 onChanged: _controller.changeLatitude,
               ),
               MyTextField(
+                textEditingController: _longitudeTextController,
                 labelText: "Longitude",
                 onChanged: _controller.changeLongitude,
               ),
@@ -54,8 +62,10 @@ class _FormPageState extends State<FormPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      await _controller.saveFavoritePlaceCoordinates();
-                      debugPrint("teste");
+                      await _controller.saveFavoritePlaceCoordinates(context);
+                      _latitudeTextController.clear();
+                      _favoritePlaceTextController.clear();
+                      _longitudeTextController.clear();
                     },
                     child: Icon(Icons.save),
                     style: ButtonStyle(

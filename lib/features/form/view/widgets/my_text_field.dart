@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 class MyTextField extends StatelessWidget {
   final String labelText;
   final Function(String) onChanged;
+  final TextEditingController textEditingController;
 
   const MyTextField({
     Key? key,
     required this.labelText,
-    required this.onChanged,
+    required this.onChanged, required this.textEditingController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: textEditingController,
       onChanged: onChanged,
       style: const TextStyle(
         color: Colors.black,
