@@ -42,6 +42,7 @@ class _MapViewState extends State<MapView> {
               center: controller.firstLocation,
               onTap: (_, p) {
                 controller.addPoint(p);
+                debugPrint(controller.testPolygon.points.toString());
               },
               plugins: [
                 DragMarkerPlugin(),
@@ -76,11 +77,29 @@ class _MapViewState extends State<MapView> {
         }),
       ),
       floatingActionButton: Observer(builder: (_) {
-        return FloatingActionButton(
-            onPressed: () {
-              controller.removePoint();
-            },
-            child: Icon(Icons.delete));
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () async {
+                await controller.formatCoordinates();
+                await controller.temporarilySaveLocationCoordinates();
+                // Navigator.pop(context);
+              },
+              child: Icon(Icons.save),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: FloatingActionButton(
+                onPressed: () {
+                  controller.removePoint();
+                  controller.deleteHiveTempData();
+                },
+                child: Icon(Icons.delete),
+              ),
+            ),
+          ],
+        );
       }),
     );
   }

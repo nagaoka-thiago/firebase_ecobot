@@ -3,12 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ecobot/core/generics/firebase_response.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../core/models/geo_coordinates_model.dart';
 part 'form_controller.g.dart';
 
 class FormController = _FormControllerBase with _$FormController;
 
 abstract class _FormControllerBase with Store {
+
+  var box = Hive.box<GeoCoordinatesModel>('temp-coordinates');
+
   final _uID = FirebaseAuth.instance.currentUser!.uid;
 
   @observable
@@ -18,13 +24,14 @@ abstract class _FormControllerBase with Store {
   void changeFavoritePlace(String newValue) => favoritePlace = newValue;
 
   @observable
-  List<String> latitude = [];
+  ObservableList<String> latitude = <String>[].asObservable();
 
   @action
   void changeLatitude(String newValue) => latitude.add(newValue);
 
   @observable
-  List<String> longitude = [];
+  ObservableList<String> longitude = <String>[].asObservable();
+
 
   @action
   void changeLongitude(String newValue) => longitude.add(newValue);
@@ -70,6 +77,15 @@ abstract class _FormControllerBase with Store {
         btnOkIcon: Icons.check_circle,
       ).show();
     }
+  }
+
+  @action
+  void syncFavoritePlaceCoordinates() {
+    for (var element in box.values) {
+      latitude.add(element.latitude.toString());
+      longitude.add(element.longitude.toString());
+    }
+ 
   }
 
 //! TODO find a way to store lat and long in firebase.

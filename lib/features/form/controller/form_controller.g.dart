@@ -29,13 +29,13 @@ mixin _$FormController on _FormControllerBase, Store {
       Atom(name: '_FormControllerBase.latitude', context: context);
 
   @override
-  List<String> get latitude {
+  ObservableList<String> get latitude {
     _$latitudeAtom.reportRead();
     return super.latitude;
   }
 
   @override
-  set latitude(List<String> value) {
+  set latitude(ObservableList<String> value) {
     _$latitudeAtom.reportWrite(value, super.latitude, () {
       super.latitude = value;
     });
@@ -45,13 +45,13 @@ mixin _$FormController on _FormControllerBase, Store {
       Atom(name: '_FormControllerBase.longitude', context: context);
 
   @override
-  List<String> get longitude {
+  ObservableList<String> get longitude {
     _$longitudeAtom.reportRead();
     return super.longitude;
   }
 
   @override
-  set longitude(List<String> value) {
+  set longitude(ObservableList<String> value) {
     _$longitudeAtom.reportWrite(value, super.longitude, () {
       super.longitude = value;
     });
@@ -98,6 +98,17 @@ mixin _$FormController on _FormControllerBase, Store {
         name: '_FormControllerBase.changeLongitude');
     try {
       return super.changeLongitude(newValue);
+    } finally {
+      _$_FormControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void syncFavoritePlaceCoordinates() {
+    final _$actionInfo = _$_FormControllerBaseActionController.startAction(
+        name: '_FormControllerBase.syncFavoritePlaceCoordinates');
+    try {
+      return super.syncFavoritePlaceCoordinates();
     } finally {
       _$_FormControllerBaseActionController.endAction(_$actionInfo);
     }
