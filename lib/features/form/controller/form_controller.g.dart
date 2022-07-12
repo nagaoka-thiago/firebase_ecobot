@@ -29,13 +29,13 @@ mixin _$FormController on _FormControllerBase, Store {
       Atom(name: '_FormControllerBase.latitude', context: context);
 
   @override
-  ObservableList<String> get latitude {
+  ObservableList<double> get latitude {
     _$latitudeAtom.reportRead();
     return super.latitude;
   }
 
   @override
-  set latitude(ObservableList<String> value) {
+  set latitude(ObservableList<double> value) {
     _$latitudeAtom.reportWrite(value, super.latitude, () {
       super.latitude = value;
     });
@@ -45,13 +45,13 @@ mixin _$FormController on _FormControllerBase, Store {
       Atom(name: '_FormControllerBase.longitude', context: context);
 
   @override
-  ObservableList<String> get longitude {
+  ObservableList<double> get longitude {
     _$longitudeAtom.reportRead();
     return super.longitude;
   }
 
   @override
-  set longitude(ObservableList<String> value) {
+  set longitude(ObservableList<double> value) {
     _$longitudeAtom.reportWrite(value, super.longitude, () {
       super.longitude = value;
     });
@@ -82,33 +82,22 @@ mixin _$FormController on _FormControllerBase, Store {
   }
 
   @override
-  void changeLatitude(String newValue) {
+  dynamic deleteTempData() {
     final _$actionInfo = _$_FormControllerBaseActionController.startAction(
-        name: '_FormControllerBase.changeLatitude');
+        name: '_FormControllerBase.deleteTempData');
     try {
-      return super.changeLatitude(newValue);
+      return super.deleteTempData();
     } finally {
       _$_FormControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void changeLongitude(String newValue) {
+  dynamic syncHiveData() {
     final _$actionInfo = _$_FormControllerBaseActionController.startAction(
-        name: '_FormControllerBase.changeLongitude');
+        name: '_FormControllerBase.syncHiveData');
     try {
-      return super.changeLongitude(newValue);
-    } finally {
-      _$_FormControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void syncFavoritePlaceCoordinates() {
-    final _$actionInfo = _$_FormControllerBaseActionController.startAction(
-        name: '_FormControllerBase.syncFavoritePlaceCoordinates');
-    try {
-      return super.syncFavoritePlaceCoordinates();
+      return super.syncHiveData();
     } finally {
       _$_FormControllerBaseActionController.endAction(_$actionInfo);
     }

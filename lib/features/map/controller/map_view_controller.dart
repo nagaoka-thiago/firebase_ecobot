@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:firebase_ecobot/core/models/geo_coordinates_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -29,7 +31,7 @@ abstract class _MapViewControllerBase with Store {
 
   @observable
   late PolyEditor polyEditor =
-      PolyEditor(points: [], pointIcon: Icon(Icons.abc_outlined));
+      PolyEditor(points: [], pointIcon: const Icon(Icons.abc_outlined));
 
   @observable
   late ObservableList<Polygon> polygons = [Polygon(points: [])].asObservable();
@@ -57,9 +59,9 @@ abstract class _MapViewControllerBase with Store {
 
     polyEditor = PolyEditor(
         points: testPolygon.points,
-        pointIcon: Icon(Icons.location_on, size: 23, color: Colors.red),
+        pointIcon: const Icon(Icons.location_on, size: 23, color: Colors.red),
         addClosePathMarker: true,
-        intermediateIcon: Icon(Icons.lens, size: 15, color: Colors.red),
+        intermediateIcon: const Icon(Icons.lens, size: 15, color: Colors.red),
         callbackRefresh: () {
           aux = !aux;
         });

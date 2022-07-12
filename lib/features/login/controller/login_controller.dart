@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ecobot/features/form/view/form_page.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ abstract class _LoginControllerBase with Store {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      print(FirebaseAuth.instance.signInWithCredential(credential));
+      // ignore: use_build_context_synchronously
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -35,7 +37,7 @@ abstract class _LoginControllerBase with Store {
       // Once signed in, return the UserCredential
       
     } on FirebaseAuthException catch (e) {
-     print(e.code);
+     debugPrint(e.code);
     }
   }
 }

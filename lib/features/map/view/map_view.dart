@@ -4,6 +4,7 @@ import 'package:flutter_map_dragmarker/dragmarker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../form/view/form_page.dart';
 import '../controller/map_view_controller.dart';
 
 class MapView extends StatefulWidget {
@@ -62,7 +63,7 @@ class _MapViewState extends State<MapView> {
                 Marker(
                     point: controller.firstLocation,
                     builder: (context) {
-                      return Icon(
+                      return const Icon(
                         Icons.location_on_outlined,
                         color: Colors.red,
                       );
@@ -84,9 +85,15 @@ class _MapViewState extends State<MapView> {
               onPressed: () async {
                 await controller.formatCoordinates();
                 await controller.temporarilySaveLocationCoordinates();
+                await Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FormPage(),
+                  ),
+                );
                 // Navigator.pop(context);
               },
-              child: Icon(Icons.save),
+              child: const Icon(Icons.save),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -95,7 +102,7 @@ class _MapViewState extends State<MapView> {
                   controller.removePoint();
                   controller.deleteHiveTempData();
                 },
-                child: Icon(Icons.delete),
+                child: const Icon(Icons.delete),
               ),
             ),
           ],

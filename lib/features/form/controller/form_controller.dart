@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +14,6 @@ part 'form_controller.g.dart';
 class FormController = _FormControllerBase with _$FormController;
 
 abstract class _FormControllerBase with Store {
-
   var box = Hive.box<GeoCoordinatesModel>('temp-coordinates');
 
   final _uID = FirebaseAuth.instance.currentUser!.uid;
@@ -24,18 +25,10 @@ abstract class _FormControllerBase with Store {
   void changeFavoritePlace(String newValue) => favoritePlace = newValue;
 
   @observable
-  ObservableList<String> latitude = <String>[].asObservable();
-
-  @action
-  void changeLatitude(String newValue) => latitude.add(newValue);
+  ObservableList<double> latitude = <double>[].asObservable();
 
   @observable
-  ObservableList<String> longitude = <String>[].asObservable();
-
-
-  @action
-  void changeLongitude(String newValue) => longitude.add(newValue);
-
+  ObservableList<double> longitude = <double>[].asObservable();
 
   @action
   Future saveFavoritePlaceCoordinates(BuildContext context) async {
@@ -43,18 +36,21 @@ abstract class _FormControllerBase with Store {
       await FirebaseFirestore.instance
           .collection("data")
           .doc(_uID)
-          .set({'id': _uID}).whenComplete(
-        () => FirebaseFirestore.instance
-            .collection("data")
-            .doc(_uID)
-            .collection("favorite-places")
-            .doc(favoritePlace)
-            .set({
+          .set({'id': _uID});
+
+      await FirebaseFirestore.instance
+          .collection("data")
+          .doc(_uID)
+          .collection("favorite-places")
+          .doc(favoritePlace)
+          .set(
+        {
           'nameOfFavoritePlace': favoritePlace,
           'latitude': latitude,
           'longitude': longitude,
-        }),
+        },
       );
+
       FirebaseResponse.success();
       return AwesomeDialog(
         context: context,
@@ -63,7 +59,7 @@ abstract class _FormControllerBase with Store {
         showCloseIcon: true,
         title: "Saved",
         desc: "Your information has been successfuly saved",
-                btnOkIcon: Icons.check_circle,
+        btnOkIcon: Icons.check_circle,
       ).show();
     } on FirebaseException catch (e) {
       FirebaseResponse.failed(error: e.code);
@@ -80,15 +76,17 @@ abstract class _FormControllerBase with Store {
   }
 
   @action
-  void syncFavoritePlaceCoordinates() {
-    for (var element in box.values) {
-      latitude.add(element.latitude.toString());
-      longitude.add(element.longitude.toString());
-    }
- 
+  deleteTempData() {
+    box.clear();
+    latitude.clear();
+    longitude.clear();
   }
 
-//! TODO find a way to store lat and long in firebase.
-
-
+  @action
+  syncHiveData() {
+    for (var coordinates in box.values) {
+      latitude.add(coordinates.latitude);
+      longitude.add(coordinates.longitude);
+    }
+  }
 }

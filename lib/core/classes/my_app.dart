@@ -1,5 +1,4 @@
 import 'package:firebase_ecobot/features/login/view/login_page.dart';
-import 'package:firebase_ecobot/features/map/view/map_view.dart';
 import 'package:flutter/material.dart';
 
 

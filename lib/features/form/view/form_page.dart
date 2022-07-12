@@ -22,22 +22,19 @@ class _FormPageState extends State<FormPage> {
   final _controller = FormController();
   final TextEditingController _favoritePlaceTextController =
       TextEditingController();
-  final TextEditingController _latitudeTextController = TextEditingController();
-  final TextEditingController _longitudeTextController =
-      TextEditingController();
 
   @override
   void initState() {
     if (box.isNotEmpty) {
-      _controller.syncFavoritePlaceCoordinates();
+      _controller.syncHiveData();
     }
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Firebase Test"),
         backgroundColor: Colors.green[300],
@@ -63,54 +60,79 @@ class _FormPageState extends State<FormPage> {
                 labelText: "Enter the name of your favorite place:",
                 onChanged: _controller.changeFavoritePlace,
               ),
-              // MyTextField(
-              //   textEditingController: _latitudeTextController,
-              //   labelText: "Latitude",
-              //   onChanged: _controller.changeLatitude,
-              // ),
-              // MyTextField(
-              //   textEditingController: _longitudeTextController,
-              //   labelText: "Longitude",
-              //   onChanged: _controller.changeLongitude,
-              // ),
               Observer(builder: (_) {
-                return ListView.builder(shrinkWrap: true, itemCount: _controller.latitude.length, itemBuilder: (context, index) {
-                  return Text(_controller.latitude[index].toString());
-                },);
-              }),
-                Observer(builder: (_) {
-                return ListView.builder(shrinkWrap: true, itemCount: _controller.latitude.length, itemBuilder: (context, index) {
-                  return Text(_controller.longitude[index].toString());
-                },);
+                return Card(
+                  color: Colors.green[50],
+                  child: SingleChildScrollView(
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: box.values.length,
+                      itemBuilder: (context, index) {
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Latitude: ${_controller.latitude[index]}",
+                                    overflow: TextOverflow.fade,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Longitude: ${_controller.longitude[index]}",
+                                    overflow: TextOverflow.fade,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                );
               }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      await _controller.saveFavoritePlaceCoordinates(context);
-                      _latitudeTextController.clear();
-                      _favoritePlaceTextController.clear();
-                      _longitudeTextController.clear();
+                      await _controller
+                          .saveFavoritePlaceCoordinates(context)
+                          .whenComplete(() => _controller.deleteTempData());
+                        _favoritePlaceTextController.clear();
+                        setState(() {
+                          _controller.syncHiveData();
+                        });
                     },
-                    child: Icon(Icons.save),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                         Colors.green[300],
                       ),
                     ),
+                    child: const Icon(Icons.save),
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MapView()));
+                      await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MapView()));
                     },
-                    child: Icon(Icons.map),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                         Colors.green[300],
                       ),
                     ),
+                    child: const Icon(Icons.map),
                   ),
                 ],
               )
