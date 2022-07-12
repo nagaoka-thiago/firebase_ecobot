@@ -1,8 +1,6 @@
 import 'package:firebase_ecobot/features/login/view/login_page.dart';
-import 'package:firebase_ecobot/features/map/view/map_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/form/view/form_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: const MapView(),
+      home: const LoginPage(),
     );
   }
 }

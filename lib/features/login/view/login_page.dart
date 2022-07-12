@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               InkWell(
                 onTap: () async {
-                  await _controller.signInWithGoogle();
+                  await _controller.signInWithGoogle(context);
                 },
                 child: Container(
                   height: 60,

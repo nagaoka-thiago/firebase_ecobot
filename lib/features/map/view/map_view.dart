@@ -4,6 +4,7 @@ import 'package:flutter_map_dragmarker/dragmarker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../form/view/form_page.dart';
 import '../controller/map_view_controller.dart';
 
 class MapView extends StatefulWidget {
@@ -42,6 +43,7 @@ class _MapViewState extends State<MapView> {
               center: controller.firstLocation,
               onTap: (_, p) {
                 controller.addPoint(p);
+                debugPrint(controller.testPolygon.points.toString());
               },
               plugins: [
                 DragMarkerPlugin(),
@@ -61,7 +63,7 @@ class _MapViewState extends State<MapView> {
                 Marker(
                     point: controller.firstLocation,
                     builder: (context) {
-                      return Icon(
+                      return const Icon(
                         Icons.location_on_outlined,
                         color: Colors.red,
                       );
@@ -76,11 +78,35 @@ class _MapViewState extends State<MapView> {
         }),
       ),
       floatingActionButton: Observer(builder: (_) {
-        return FloatingActionButton(
-            onPressed: () {
-              controller.removePoint();
-            },
-            child: Icon(Icons.delete));
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () async {
+                await controller.formatCoordinates();
+                await controller.temporarilySaveLocationCoordinates();
+                await Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FormPage(),
+                  ),
+                );
+                // Navigator.pop(context);
+              },
+              child: const Icon(Icons.save),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: FloatingActionButton(
+                onPressed: () {
+                  controller.removePoint();
+                  controller.deleteHiveTempData();
+                },
+                child: const Icon(Icons.delete),
+              ),
+            ),
+          ],
+        );
       }),
     );
   }

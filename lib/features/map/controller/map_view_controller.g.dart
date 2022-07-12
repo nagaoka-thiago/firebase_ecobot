@@ -9,19 +9,35 @@ part of 'map_view_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$MapViewController on _MapViewControllerBase, Store {
-  late final _$_testPolygonAtom =
-      Atom(name: '_MapViewControllerBase._testPolygon', context: context);
+  late final _$formatedsPoints2Atom =
+      Atom(name: '_MapViewControllerBase.formatedsPoints2', context: context);
 
   @override
-  Polygon get _testPolygon {
-    _$_testPolygonAtom.reportRead();
-    return super._testPolygon;
+  ObservableList<GeoCoordinatesModel> get formatedsPoints2 {
+    _$formatedsPoints2Atom.reportRead();
+    return super.formatedsPoints2;
   }
 
   @override
-  set _testPolygon(Polygon value) {
-    _$_testPolygonAtom.reportWrite(value, super._testPolygon, () {
-      super._testPolygon = value;
+  set formatedsPoints2(ObservableList<GeoCoordinatesModel> value) {
+    _$formatedsPoints2Atom.reportWrite(value, super.formatedsPoints2, () {
+      super.formatedsPoints2 = value;
+    });
+  }
+
+  late final _$testPolygonAtom =
+      Atom(name: '_MapViewControllerBase.testPolygon', context: context);
+
+  @override
+  Polygon get testPolygon {
+    _$testPolygonAtom.reportRead();
+    return super.testPolygon;
+  }
+
+  @override
+  set testPolygon(Polygon value) {
+    _$testPolygonAtom.reportWrite(value, super.testPolygon, () {
+      super.testPolygon = value;
     });
   }
 
@@ -169,8 +185,43 @@ mixin _$MapViewController on _MapViewControllerBase, Store {
   }
 
   @override
+  dynamic formatCoordinates() {
+    final _$actionInfo = _$_MapViewControllerBaseActionController.startAction(
+        name: '_MapViewControllerBase.formatCoordinates');
+    try {
+      return super.formatCoordinates();
+    } finally {
+      _$_MapViewControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic temporarilySaveLocationCoordinates() {
+    final _$actionInfo = _$_MapViewControllerBaseActionController.startAction(
+        name: '_MapViewControllerBase.temporarilySaveLocationCoordinates');
+    try {
+      return super.temporarilySaveLocationCoordinates();
+    } finally {
+      _$_MapViewControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic deleteHiveTempData() {
+    final _$actionInfo = _$_MapViewControllerBaseActionController.startAction(
+        name: '_MapViewControllerBase.deleteHiveTempData');
+    try {
+      return super.deleteHiveTempData();
+    } finally {
+      _$_MapViewControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+formatedsPoints2: ${formatedsPoints2},
+testPolygon: ${testPolygon},
 polyEditor: ${polyEditor},
 polygons: ${polygons},
 location: ${location},
