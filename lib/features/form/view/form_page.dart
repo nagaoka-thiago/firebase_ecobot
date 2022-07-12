@@ -4,6 +4,7 @@ import 'package:firebase_ecobot/features/map/view/map_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/models/geo_coordinates_model.dart';
 
@@ -28,6 +29,9 @@ class _FormPageState extends State<FormPage> {
     if (box.isNotEmpty) {
       _controller.syncHiveData();
     }
+    Permission.location.request();
+    Permission.locationWhenInUse.request();
+
     super.initState();
   }
 
