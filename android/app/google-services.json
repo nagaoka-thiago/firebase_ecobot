@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "780945785517-bit861f91ivdvgga1djl299h6upc3res.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebase_ecobot",
+            "certificate_hash": "fb3059e429830b62ac79ad274060f4adf534e085"
+          }
+        },
+        {
+          "client_id": "780945785517-qr0m0sdds7pfscf9suv0lra8r66d57em.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebase_ecobot",
+            "certificate_hash": "6dda0dce691f9406259f8d9d7a5397df9aa1862b"
+          }
+        },
+        {
           "client_id": "780945785517-730sts99ju50nmv1ra9tansvl557bueh.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +45,13 @@
             {
               "client_id": "780945785517-730sts99ju50nmv1ra9tansvl557bueh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "780945785517-ttvt246d9mbshl7jkf5qv9cphjg01chv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseEcobot"
+              }
             }
           ]
         }

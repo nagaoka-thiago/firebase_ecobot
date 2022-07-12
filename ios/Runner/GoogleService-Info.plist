@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>780945785517-ttvt246d9mbshl7jkf5qv9cphjg01chv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.780945785517-ttvt246d9mbshl7jkf5qv9cphjg01chv</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>780945785517-bit861f91ivdvgga1djl299h6upc3res.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA90M-BXc72E1SnqyAh5B-18STMVdskljc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>780945785517</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.firebaseEcobot</string>
+	<key>PROJECT_ID</key>
+	<string>fir-ecobot</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fir-ecobot.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:780945785517:ios:1c8b2c31e6a009adf37c24</string>
+</dict>
+</plist>
