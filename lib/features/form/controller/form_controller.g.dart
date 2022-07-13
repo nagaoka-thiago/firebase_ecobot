@@ -67,6 +67,14 @@ mixin _$FormController on _FormControllerBase, Store {
         .run(() => super.saveFavoritePlaceCoordinates(context));
   }
 
+  late final _$deleteTempDataAsyncAction =
+      AsyncAction('_FormControllerBase.deleteTempData', context: context);
+
+  @override
+  Future<dynamic> deleteTempData() {
+    return _$deleteTempDataAsyncAction.run(() => super.deleteTempData());
+  }
+
   late final _$_FormControllerBaseActionController =
       ActionController(name: '_FormControllerBase', context: context);
 
@@ -76,17 +84,6 @@ mixin _$FormController on _FormControllerBase, Store {
         name: '_FormControllerBase.changeFavoritePlace');
     try {
       return super.changeFavoritePlace(newValue);
-    } finally {
-      _$_FormControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic deleteTempData() {
-    final _$actionInfo = _$_FormControllerBaseActionController.startAction(
-        name: '_FormControllerBase.deleteTempData');
-    try {
-      return super.deleteTempData();
     } finally {
       _$_FormControllerBaseActionController.endAction(_$actionInfo);
     }

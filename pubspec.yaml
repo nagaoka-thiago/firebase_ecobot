@@ -49,6 +49,7 @@ dependencies:
   permission_handler: ^10.0.0
   latlong2: ^0.8.1
   hive_flutter:
+  google_fonts: ^3.0.1
   
 
 dev_dependencies:
