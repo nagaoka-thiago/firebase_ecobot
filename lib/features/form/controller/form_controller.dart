@@ -76,8 +76,8 @@ abstract class _FormControllerBase with Store {
   }
 
   @action
-  deleteTempData() {
-    box.clear();
+  Future deleteTempData() async {
+    await box.clear();
     latitude.clear();
     longitude.clear();
   }
