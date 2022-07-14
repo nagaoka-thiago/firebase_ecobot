@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ecobot/core/generics/firebase_response.dart';
+import 'package:firebase_ecobot/features/form/controller/generate_pdf_with_coordinates.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -56,10 +57,26 @@ abstract class _FormControllerBase with Store {
         context: context,
         dialogType: DialogType.SUCCES,
         animType: AnimType.TOPSLIDE,
-        showCloseIcon: true,
         title: "Saved",
         desc: "Your information has been successfuly saved",
-        btnOkIcon: Icons.check_circle,
+        btnOk: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.green),
+          ),
+          onPressed: () async {
+            await generatePDFwithCoordinates(favoritePlace, latitude, longitude);
+          },
+          child: const Icon(Icons.picture_as_pdf),
+        ),
+        btnCancel: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.green),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(Icons.check_circle),
+        ),
       ).show();
     } on FirebaseException catch (e) {
       FirebaseResponse.failed(error: e.code);
