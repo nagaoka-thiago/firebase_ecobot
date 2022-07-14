@@ -50,6 +50,10 @@ dependencies:
   latlong2: ^0.8.1
   hive_flutter:
   google_fonts: ^3.0.1
+  pdf: ^3.8.1
+  path_provider: ^2.0.11
+  open_filex: ^3.4.0
+  
   
 
 dev_dependencies:
