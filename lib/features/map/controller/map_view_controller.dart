@@ -13,7 +13,6 @@ part 'map_view_controller.g.dart';
 class MapViewController = _MapViewControllerBase with _$MapViewController;
 
 abstract class _MapViewControllerBase with Store {
-  
   var box = Hive.box<GeoCoordinatesModel>('temp-coordinates');
 
   // final List<GeoCoordinatesModel> formatedsPoints = [];
@@ -40,13 +39,18 @@ abstract class _MapViewControllerBase with Store {
   late Location location = Location();
 
   @observable
-  late LatLng firstLocation = LatLng(0, 0);
+  late LatLng firstLocation = LatLng(45.0, -0.09);
 
   @observable
   bool isInitialized = false;
 
   @observable
   bool aux = false;
+
+  @action
+  setFirstLocation(LatLng newValue) {
+    firstLocation = newValue;
+  }
 
   @action
   initializeAll() {
@@ -67,17 +71,22 @@ abstract class _MapViewControllerBase with Store {
         });
     polygons = ObservableList<Polygon>();
     polygons.add(testPolygon);
+    isInitialized = true;
+  }
 
+  @action
+  initializeLocation(MapController mapController) async {
+    LocationData locData;
     location = Location();
 
-    location
-        .getLocation()
-        .then((loc) => {firstLocation = LatLng(loc.latitude!, loc.longitude!)});
+    locData = await location.getLocation();
 
-    location.onLocationChanged.listen((event) {
-      firstLocation = LatLng(event.latitude!, event.longitude!);
-    });
-    isInitialized = true;
+    setFirstLocation(LatLng(locData.latitude!, locData.longitude!));
+
+    location.onLocationChanged.listen((event) =>
+        {setFirstLocation(LatLng(event.latitude!, event.longitude!))});
+
+    mapController.onReady.then((_) => mapController.move(firstLocation, 17));
   }
 
   @action
@@ -109,7 +118,6 @@ abstract class _MapViewControllerBase with Store {
 
   @action
   temporarilySaveLocationCoordinates() {
- 
     for (var coordinate in formatedsPoints2) {
       box.add(
         GeoCoordinatesModel(
@@ -117,7 +125,6 @@ abstract class _MapViewControllerBase with Store {
           longitude: coordinate.longitude,
         ),
       );
-    
     }
     debugPrint("This is what is saved: ${box.values.first.latitude}");
   }
