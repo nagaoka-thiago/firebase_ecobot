@@ -16,6 +16,7 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   late MapViewController controller;
+  MapController mapController = MapController();
 
   @override
   void initState() {
@@ -27,17 +28,19 @@ class _MapViewState extends State<MapView> {
 
     controller = MapViewController();
     controller.initializeAll();
+    controller.initializeLocation(mapController);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    Widget widget = Scaffold(
       appBar: AppBar(
         title: const Text('Map'),
       ),
       body: Center(
         child: Observer(builder: (_) {
           return FlutterMap(
+            mapController: mapController,
             options: MapOptions(
               allowPanningOnScrollingParent: false,
               center: controller.firstLocation,
@@ -48,7 +51,7 @@ class _MapViewState extends State<MapView> {
               plugins: [
                 DragMarkerPlugin(),
               ],
-              zoom: 13.0,
+              zoom: 9.2,
             ),
             layers: [
               TileLayerOptions(
@@ -109,5 +112,7 @@ class _MapViewState extends State<MapView> {
         );
       }),
     );
+
+    return widget;
   }
 }

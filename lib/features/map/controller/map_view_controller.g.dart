@@ -137,8 +137,29 @@ mixin _$MapViewController on _MapViewControllerBase, Store {
     });
   }
 
+  late final _$initializeLocationAsyncAction = AsyncAction(
+      '_MapViewControllerBase.initializeLocation',
+      context: context);
+
+  @override
+  Future initializeLocation(MapController mapController) {
+    return _$initializeLocationAsyncAction
+        .run(() => super.initializeLocation(mapController));
+  }
+
   late final _$_MapViewControllerBaseActionController =
       ActionController(name: '_MapViewControllerBase', context: context);
+
+  @override
+  dynamic setFirstLocation(LatLng newValue) {
+    final _$actionInfo = _$_MapViewControllerBaseActionController.startAction(
+        name: '_MapViewControllerBase.setFirstLocation');
+    try {
+      return super.setFirstLocation(newValue);
+    } finally {
+      _$_MapViewControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic initializeAll() {
